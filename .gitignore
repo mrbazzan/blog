@@ -1,0 +1,7 @@
+
+.idea/
+__pycache__
+templates/registration/login.html
+
+*.pyc
+db.sqlite3
