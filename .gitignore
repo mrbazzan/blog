@@ -1,7 +1,12 @@
 
 .idea/
-__pycache__
-templates/registration/login.html
+__pycache__/
 
 *.pyc
 db.sqlite3
+
+templates/registration/password_reset_complete.html
+templates/registration/password_reset_confirm.html
+templates/registration/password_reset_done.html
+templates/registration/password_reset_email.html
+templates/registration/password_reset_form.html

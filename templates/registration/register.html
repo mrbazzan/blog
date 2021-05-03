@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3 style="text-align: center;">REGISTER PAGE</h3>
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" name="username" autofocus autocapitalize="none" maxlength="150" required id="username"></td>
+            </tr>
+<!--            <tr>-->
+<!--                <td><label for="email">Email:</label></td>-->
+<!--                <td><input type="text" name="email" required id="email"></td>-->
+<!--            </tr>-->
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" name="password" required id="password"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Register">
+    </form>
+
+{% endblock %}
+
+<!--3WeL2ibAxhPeLmp-->

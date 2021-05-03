@@ -2,26 +2,34 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
+    <head>
+        <title>Django Blog</title>
+        <link rel="stylesheet" href="{% static 'css/blog/base.css' %}">
+        {% block style %} {% endblock %}
+    </head>
 
-<head>
-    <title>Django Blog</title>
-    <link rel="stylesheet" href="{% static 'css/blog/base.css' %}">
-</head>
+    <body>
+        <nav>
+            <h1><a href="{% url 'blog:home' %}">Django Blog</a></h1>
+            <ul>
+        <!--            ?next={{ request.path }}-->
+                {% if user.is_authenticated %}
+                    {% if user.id == 1 %}
+                        <li><a href="/admin">{{ user.get_username }}</a></li>
+                    {% else %}
+                    <li><span>{{ user.get_username }}</span></li>
+                    {% endif %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'blog:register' %}">Register</a></li>
+                    <li><a href="{% url 'login' %}?">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
 
-<body>
-<header>
-    <div class="nav-left">
-        <h1><a href="{% url 'blog:home' %}">Django Blog</a></h1>
-    </div>
-
-    <div class="nav-right">
-        <a href="{% url 'blog:post' %}">New Post</a>
-    </div>
-</header>
-<div>
-        {% block content %}
-        {% endblock %}
-</div>
-</body>
-
+        <section class="content">
+            {% block post %} {% endblock %}
+            {% block content %} {% endblock %}
+        </section>
+    </body>
 </html>

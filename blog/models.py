@@ -15,3 +15,14 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    name = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    date = models.DateTimeField('date published', auto_now_add=True)
+    comment = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.comment
+
