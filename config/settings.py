@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,17 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@ie21#r%s=-9grzcy+o*h$mu^s!9e9f)4!1&4#%p5utw$(7rs9'
+KEY = 'django-insecure-@ie21#r%s=-9grzcy+o*h$mu^s!9e9f)4!1&4#%p5utw$(7rs9'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['baz-django-blog.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -118,8 +123,8 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_FILE_DIRS = [str(BASE_DIR.joinpath('static'))]
+STATIC_URL = '/blog/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -132,4 +137,10 @@ LOGIN_REDIRECT_URL = '/'
 # Redirect if user is not logged in
 LOGIN_URL = 'login'
 
+# compress static file and creating unique names for each version, no caching.
+STATIC_FILE_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 EMAIL_BACKEND = 'django.core.email.backends.console.EmailBackend'
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
