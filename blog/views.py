@@ -84,18 +84,27 @@ class BlogCommentView(LoginRequiredMixin, generic.CreateView):
 
 
 def register(request):
-    if request.POST:
-        username = request.POST.get('username')
-        try:
-            User.objects.create_user(
-                username=username,
-                password=request.POST.get('password')
-            )
-        except IntegrityError:
-            return render(request, 'registration/register.html', {
-                'error_message': 'User {} already exists'.format(username),
-            })
-        else:
-            return HttpResponseRedirect(reverse('login'))
 
-    return render(request, 'registration/register.html')
+    error_message = None
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if not username:
+            error_message = 'Username cannot be blank'
+        elif not password:
+            error_message = 'Password cannot be blank'
+
+        if error_message is None:
+            try:
+                User.objects.create_user(
+                    username=username,
+                    password=password
+                )
+            except IntegrityError:
+                error_message = 'User {} is already registered'.format(username)
+            else:
+                return HttpResponseRedirect(reverse('login'))
+
+    return render(request, 'registration/register.html', {'error_message': error_message})
