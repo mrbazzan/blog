@@ -7,7 +7,8 @@
 - Login of registered users
 - Logged in users can create, edit and delete posts
 - Only Admin and author of post can edit and delete post
-- Logout 
+- Logout
+- Password reset
 - A comment section(only logged in users can comment)
 - Different tests can be carried out
 

@@ -3,7 +3,7 @@
 
 {% block post %}
     <div>
-        <span>Update Post</span>
+        <h3>Update Post</h3>
     </div>
 {% endblock %}
 
@@ -11,5 +11,6 @@
     <form method="post" action="">
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="submit" value="Post">
     </form>
 {% endblock %}
