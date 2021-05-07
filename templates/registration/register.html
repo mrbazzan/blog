@@ -11,16 +11,15 @@
 
     <form method="post" action="">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td><label for="username">Username:</label></td>
-                <td><input type="text" name="username" autofocus autocapitalize="none" maxlength="150" required id="username"></td>
-            </tr>
-            <tr>
-                <td><label for="password">Password:</label></td>
-                <td><input type="password" name="password" required id="password"></td>
-            </tr>
-        </table>
+        <p>
+            <label for="id_username">Username:</label>
+            <input type="text" autofocus maxlength="150" name="username" required id="id_username">
+        </p>
+        {{ form.label_tag }} {{ form.as_p }}
+        <p>
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" required id="id_password">
+        </p>
         <input type="submit" value="Register">
     </form>
 

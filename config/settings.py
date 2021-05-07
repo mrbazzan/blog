@@ -134,7 +134,15 @@ LOGIN_URL = 'login'
 # compress static file and creating unique names for each version, no caching.
 STATIC_FILE_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-EMAIL_BACKEND = 'django.core.email.backends.console.EmailBackend'
+# validate that emails will be sent to the right people
+EMAIL_BACKEND = os.environ.get('DJANGO_EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASSWORD')
+
+EMAIL_HOST_USER = 'donbazzan@gmail.com'
+EMAIL_USE_TLS = True
