@@ -23,4 +23,35 @@
         <p class="body"> {{post.body}} </p>
     </article>
     {% endfor %}
+
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <span style="padding-right: 10px;">
+                <a href="/?=page{{ page_obj.previous_page_number }}">&laquo;</a>
+            </span>
+        {% endif %}
+
+<!--            the present page should be disabled-->
+<!--            if the last page is clicked, show only previous-->
+
+        {% for number in  paginator.page_range %}
+            {% if page_obj.number == number %}
+                <span style="padding-right: 10px;">
+                    {{ number|safe }}
+                </span>
+            {% else %}
+                <span style="padding-right: 10px;">
+                    <a href="/?page={{ number }}">{{ number }}</a>
+                </span>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <span style="padding-right: 10px;">
+                <a href="/?page={{ page_obj.next_page_number }}">&raquo;</a>
+            </span>
+        {% endif %}
+    {% endif %}
+
 {% endblock %}

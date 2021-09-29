@@ -19,7 +19,9 @@ from . import forms
 
 class BlogListView(generic.ListView):
     model = Post
+    paginate_by =10
     template_name = 'blog/home.html'
+    ordering = 'id'
 
 
 class BlogDetailView(generic.DetailView):
