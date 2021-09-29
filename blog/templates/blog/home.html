@@ -10,6 +10,9 @@
     .link-space {
         padding-right: 20px;
     }
+    .page-view {
+        margin-top: 0;
+    }
 </style>
 {% endblock %}
 
@@ -32,7 +35,7 @@
             <h1><a href="{% url 'blog:detail' post.id %}"> {{post.title}} </a></h1>
         </div>
 
-        <p class="body"> {{post.body}} </p>
+        <p class="body page-view"> {{post.title_explanation}} </p>
     </article>
     {% endfor %}
 

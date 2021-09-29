@@ -19,7 +19,7 @@ from . import forms
 
 class BlogListView(generic.ListView):
     model = Post
-    paginate_by =10
+    paginate_by = 5
     template_name = 'blog/home.html'
     ordering = 'id'
 
@@ -42,7 +42,7 @@ class BlogPostView(LoginRequiredMixin, generic.CreateView):
     model = Post
     template_name = 'blog/new.html'
     success_url = reverse_lazy('blog:home')
-    fields = ['title', 'body']
+    fields = ['title', 'title_explanation', 'body']
 
     def form_valid(self, form):
         form.instance.author_id = self.request.POST.get('author')
@@ -53,7 +53,7 @@ class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView
     model = Post
     template_name = 'blog/edit.html'
     success_url = reverse_lazy('blog:home')
-    fields = ['title', 'body']
+    fields = ['title', 'title_explanation', 'body']
     permission_denied_message = 'You do not have permission to edit this page.'
 
     def test_func(self):
@@ -65,7 +65,6 @@ class BlogDeleteView(UserPassesTestMixin, LoginRequiredMixin, generic.DeleteView
     model = Post
     template_name = 'blog/delete.html'
     success_url = reverse_lazy('blog:home')
-    fields = ['title', 'author', 'body']
 
     def test_func(self):
         obj = self.get_object()

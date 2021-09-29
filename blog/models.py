@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=100)
+    title_explanation = models.CharField(max_length=200, null=False, default='')
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     body = models.TextField()
 
