@@ -55,7 +55,7 @@
                 </span>
             {% else %}
                 {% if page_obj.number > number|add:"-5" and page_obj.number < number|add:"3" %}
-                    <span class="link-space"">
+                    <span class="link-space">
                         <a href="/?page={{ number }}">{{ number }}</a>
                     </span>
                 {% endif %}
