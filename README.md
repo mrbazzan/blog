@@ -2,6 +2,8 @@
 # [Django Blog](https://baz-django-blog.herokuapp.com)
     This blog was created with Python's Django Framework
 
+note - site was hosted on heroku's free plan which has since been cancelled
+
 ## Functions
 - Registration of new users
 - Login of registered users
